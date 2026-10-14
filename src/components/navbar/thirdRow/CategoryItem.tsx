@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import type { Category } from "../../../data/categories";
 
 
@@ -14,10 +15,12 @@ const CategoryItem = ({
 }: CategoryItemProps) => {
   const Icon = category.icon;
 
+  const navigate = useNavigate();
+
   return (
     <button
       type="button"
-      onClick={() => onClick(category.id)}
+      onClick={() =>{onClick(category.id); navigate(`/category/${category.slug}`)}}
       aria-pressed={isActive}
       className={`group relative flex min-w-0 flex-1 flex-col
         items-center justify-center gap-1 px-2 pt-2 pb-3

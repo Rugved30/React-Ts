@@ -1,72 +1,30 @@
+import {getCityFromCoordinates, getCurrentLocation} from "../../../hooks/useGeolocation";
+import LocationDropdown from "./LocationDropDown";
 
-const indianCities = [
-  // Tier 1 Cities
-  "Mumbai",
-  "Delhi",
-  "Bengaluru",
-  "Chennai",
-  "Hyderabad",
-  "Kolkata",
-  "Pune",
-  "Ahmedabad",
-
-  // Tier 2 Cities
-  "Jaipur",
-  "Lucknow",
-  "Chandigarh",
-  "Indore",
-  "Bhopal",
-  "Nagpur",
-  "Nashik",
-  "Surat",
-  "Vadodara",
-  "Rajkot",
-  "Coimbatore",
-  "Kochi",
-  "Thiruvananthapuram",
-  "Visakhapatnam",
-  "Vijayawada",
-  "Mysuru",
-  "Mangaluru",
-  "Madurai",
-  "Tiruchirappalli",
-  "Jodhpur",
-  "Udaipur",
-  "Dehradun",
-  "Agra",
-  "Kanpur",
-  "Varanasi",
-  "Prayagraj",
-  "Patna",
-  "Ranchi",
-  "Raipur",
-  "Bhubaneswar",
-  "Guwahati",
-  "Jalandhar",
-  "Ludhiana",
-  "Amritsar",
-  "Meerut",
-  "Gwalior",
-  "Jabalpur",
-  "Chhatrapati Sambhajinagar",
-  "Kolhapur",
-  "Solapur",
-  "Siliguri",
-  "Dhanbad",
-  "Jamshedpur",
-  "Warangal",
-  "Tiruppur"
-];
 
 function Location() {
+  const handleUseCurrentLocation = async () => {
+  try {
+    const coordinates = await getCurrentLocation();
+
+    const address = await getCityFromCoordinates(
+      coordinates.latitude,
+      coordinates.longitude
+    );
+
+    console.log(address);
+    // Example shape:
+    // { city: "Mumbai", state: "Maharashtra", country: "India" }
+  } catch (error) {
+    console.error("Could not determine location:", error);
+  }
+};
+
   return (
     <div>
-        <label><strong>Choose your location: </strong></label>
-        <select>
-            {indianCities.map((city,index)=><option key={index}>{city}</option>)}
-        </select>
+      <LocationDropdown />
     </div>
-  )
+  );
 }
 
-export default Location
+export default Location;
